@@ -1,7 +1,8 @@
 package project.swa.ProductService.service;
 
 import lombok.Data;
-import project.swa.ProductService.domain.Stock;
+
+import java.util.List;
 
 @Data
 public class ProductDTO {
@@ -9,13 +10,15 @@ public class ProductDTO {
     private String name;
     private Double price;
     private String description;
-    private Stock stock;
+    private StockDTO stockDTO;
+    private List<ReviewDTO> reviewDTOS;
 
-    public ProductDTO(String productNumber, String name, Double price, String description, Stock stock) {
+    public ProductDTO(String productNumber, String name, Double price, String description, StockDTO stockDTO, List<ReviewDTO> reviewDTOS) {
         this.productNumber = productNumber;
         this.name = name;
         this.price = price;
         this.description = description;
-        this.stock = stock;
+        this.stockDTO = stockDTO;
+        this.reviewDTOS = reviewDTOS;
     }
 }

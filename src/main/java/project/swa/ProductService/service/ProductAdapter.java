@@ -9,7 +9,8 @@ public class ProductAdapter {
                 productDTO.getName(),
                 productDTO.getPrice(),
                 productDTO.getDescription(),
-                productDTO.getStock());
+                StockAdapter.getStock(productDTO.getStockDTO()),
+                productDTO.getReviewDTOS().stream().map(ReviewAdapter::getReview).toList());
     }
 
     public static ProductDTO getProductDTO(Product product) {
@@ -17,6 +18,7 @@ public class ProductAdapter {
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getStock());
+                StockAdapter.getStockDTO(product.getStock()),
+                product.getReviews().stream().map(ReviewAdapter::getReviewDTO).toList());
     }
 }

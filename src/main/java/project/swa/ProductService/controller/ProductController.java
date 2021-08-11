@@ -1,5 +1,7 @@
 package project.swa.ProductService.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class.getName());
 
     @Autowired
     private ProductService productService;
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getCustomers() {
+        logger.info("Calling GET /product");
         List<ProductDTO> customerDTO1 = productService.getAll();
         try {
             if (customerDTO1 != null) {
@@ -34,6 +38,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDTO> addCustomer(@RequestBody ProductDTO customerDTO) {
+        logger.info("Calling POST /product");
         ProductDTO customerDTO1 = productService.add(customerDTO);
         try {
             if (customerDTO1 != null) {
@@ -49,6 +54,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateCustomer(@PathVariable String id, @RequestBody ProductDTO customerDTO) {
+        logger.info("Calling PUT /product");
         ProductDTO customerDTO1 = productService.update(id, customerDTO);
         if (customerDTO1 != null) {
             return new ResponseEntity<>(customerDTO1, HttpStatus.CREATED);
@@ -59,6 +65,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ProductDTO> deleteCustomer(@PathVariable String id) {
+        logger.info("Calling DELETE /product");
         ProductDTO customerDTO1 = productService.delete(id);
         if (customerDTO1 != null) {
             return new ResponseEntity<>(customerDTO1, HttpStatus.CREATED);

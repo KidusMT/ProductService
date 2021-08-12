@@ -1,6 +1,7 @@
 package project.swa.ProductService.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.jaxb.OrderAdapter;
 import org.springframework.stereotype.Service;
 import project.swa.ProductService.data.ProductRepository;
 import project.swa.ProductService.domain.Product;
@@ -17,6 +18,10 @@ public class ProductService {
 
     public List<ProductDTO> getAll() {
         return productRepository.findAll().stream().map(ProductAdapter::getProductDTO).toList();
+    }
+
+    public List<ProductDTO> getById(String id) {
+        return productRepository.findById(id).stream().map(ProductAdapter::getProductDTO).toList();
     }
 
     public ProductDTO add(ProductDTO productDTO) {

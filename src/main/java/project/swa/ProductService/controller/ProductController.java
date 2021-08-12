@@ -11,6 +11,7 @@ import project.swa.ProductService.service.ProductDTO;
 import project.swa.ProductService.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
@@ -27,6 +28,22 @@ public class ProductController {
         try {
             if (customerDTO1 != null) {
                 return new ResponseEntity<>(customerDTO1, HttpStatus.CREATED);
+            } else {
+                throw new ProductNotFoundException("Product not found");
+            }
+        } catch (ProductNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getCustomer(@PathVariable String id) {
+        logger.info("Calling GET /order");
+        Optional<ProductDTO> customerDTO1 = productService.getById(id).stream().findAny();
+        try {
+            if (customerDTO1.isPresent()) {
+                return new ResponseEntity<>(customerDTO1.get(), HttpStatus.CREATED);
             } else {
                 throw new ProductNotFoundException("Product not found");
             }
